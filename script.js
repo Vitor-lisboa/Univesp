@@ -125,8 +125,4 @@ function toggleTheme() {
 function loadProgress() {
     progress = parseInt(localStorage.getItem('progress') || 0);
     studyTime = parseInt(localStorage.getItem('studyTime') || 0);
-    performance = JSON.parse(localStorage.getItem('performance') || '{}');
-    theme = localStorage.getItem('theme') || 'light';
-    document.body.classList.toggle('dark', theme === 'dark');
-    document.getElementById('progress-percent').textContent = progress + '%';
-    document.getElementById('progress
+   
