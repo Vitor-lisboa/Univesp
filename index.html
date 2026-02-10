@@ -1,93 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="App interativo com IA local para estudo do vestibular UNIVESP">
-    <title>UNIVESP Vestibular - Estudo com IA</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="manifest" href="manifest.json">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNIVESP Estudo com IA</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- IMPORTANTE -->
+<script src="script.js" defer></script>
+
 </head>
+
 <body>
-    <div id="onboarding" class="screen">
-        <h1><i class="fas fa-robot"></i> Bem-vindo ao Estudo UNIVESP com IA!</h1>
-        <p>Plano de 8 semanas com assistente inteligente. Vamos começar?</p>
-        <button onclick="startOnboarding()">Começar <i class="fas fa-arrow-right"></i></button>
-    </div>
 
-    <div id="login-screen" class="screen hidden">
-        <h1><i class="fas fa-user"></i> Login</h1>
-        <input type="text" id="username" placeholder="Digite seu nome" required>
-        <button onclick="login()">Entrar <i class="fas fa-sign-in-alt"></i></button>
-    </div>
+<!-- ONBOARDING -->
+<div id="onboarding" class="screen">
+<h1>🤖 Bem-vindo ao Estudo UNIVESP</h1>
+<p>Plano de estudos inteligente para vestibular</p>
+<button onclick="startOnboarding()">Começar</button>
+</div>
 
-    <div id="dashboard" class="screen hidden">
-        <header>
-            <h1><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
-            <button onclick="toggleTheme()"><i class="fas fa-moon"></i> Tema</button>
-            <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
-        </header>
-        <div class="progress">
-            <h2>Progresso Semanal: <span id="progress-percent">0%</span></h2>
-            <div class="progress-bar"><div id="progress-fill"></div></div>
-            <canvas id="progress-chart" width="300" height="150"></canvas>
-        </div>
-        <div class="checklist">
-            <h2><i class="fas fa-check-square"></i> Checklist Diário</h2>
-            <ul id="daily-checklist">
-                <li><input type="checkbox" id="math-check" onchange="updateProgress()"> Matemática (1h)</li>
-                <li><input type="checkbox" id="port-check" onchange="updateProgress()"> Português (45min)</li>
-                <li><input type="checkbox" id="gen-check" onchange="updateProgress()"> Conhecimentos Gerais (30min)</li>
-                <li><input type="checkbox" id="red-check" onchange="updateProgress()"> Redação (15min)</li>
-            </ul>
-            <button onclick="saveChecklist()">Salvar <i class="fas fa-save"></i></button>
-        </div>
-        <div class="study-time">
-            <h2><i class="fas fa-clock"></i> Tempo Hoje: <span id="study-time">0 min</span></h2>
-            <button onclick="startTimer()">Iniciar <i class="fas fa-play"></i></button>
-            <button onclick="stopTimer()">Parar <i class="fas fa-stop"></i></button>
-        </div>
-        <div class="calendar">
-            <h2><i class="fas fa-calendar-alt"></i> Calendário</h2>
-            <div id="calendar-content"></div>
-        </div>
-        <div class="subjects">
-            <h2><i class="fas fa-book"></i> Matérias</h2>
-            <button onclick="showSubject('math')">Matemática <i class="fas fa-calculator"></i></button>
-            <button onclick="showSubject('port')">Português <i class="fas fa-language"></i></button>
-            <button onclick="showSubject('gen')">Conhecimentos Gerais <i class="fas fa-globe"></i></button>
-            <button onclick="showSubject('red')">Redação <i class="fas fa-pen"></i></button>
-        </div>
-        <div class="simulados">
-            <h2><i class="fas fa-brain"></i> Simulados</h2>
-            <button onclick="startSimulado()">Iniciar <i class="fas fa-rocket"></i></button>
-        </div>
-        <div class="ai-assistant">
-            <h2><i class="fas fa-robot"></i> Assistente IA</h2>
-            <div id="chat-window">
-                <div id="chat-messages"></div>
-                <input type="text" id="chat-input" placeholder="Pergunte algo, ex.: 'Explique porcentagem'">
-                <button onclick="sendMessage()">Enviar <i class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
-        <div class="suggestions">
-            <h2><i class="fas fa-lightbulb"></i> Sugestões IA</h2>
-            <p id="suggestion-text">Foque em Matemática hoje!</p>
-        </div>
-    </div>
+<!-- LOGIN -->
+<div id="login-screen" class="screen hidden">
+<h1>Login</h1>
+<input type="text" id="username" placeholder="Digite seu nome">
+<button onclick="login()">Entrar</button>
+</div>
 
-    <div id="subject-screen" class="screen hidden">
-        <button onclick="backToDashboard()"><i class="fas fa-arrow-left"></i> Voltar</button>
-        <div id="subject-content"></div>
-    </div>
+<!-- DASHBOARD -->
+<div id="dashboard" class="screen hidden">
+<h1>Dashboard</h1>
 
-    <div id="simulado-screen" class="screen hidden">
-        <button onclick="backToDashboard()"><i class="fas fa-arrow-left"></i> Voltar</button>
-        <div id="simulado-content"></div>
-    </div>
+<button onclick="toggleTheme()">Trocar Tema</button>
+<button onclick="logout()">Sair</button>
 
-    <script src="script.js"></script>
+<h2>Progresso: <span id="progress-percent">0%</span></h2>
+<div class="progress-bar">
+<div id="progress-fill"></div>
+</div>
+
+<h2>Checklist</h2>
+<label><input type="checkbox" onchange="updateProgress()"> Matemática</label><br>
+<label><input type="checkbox" onchange="updateProgress()"> Português</label><br>
+<label><input type="checkbox" onchange="updateProgress()"> Conhecimentos Gerais</label><br>
+<label><input type="checkbox" onchange="updateProgress()"> Redação</label>
+
+</div>
+
 </body>
 </html>
